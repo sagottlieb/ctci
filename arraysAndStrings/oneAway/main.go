@@ -9,6 +9,84 @@ func main() {
 	fmt.Println("Run go test and go test -bench=.")
 }
 
+func checkOneAway(s, t string) bool {
+
+	if len(s) == len(t) {
+		// replacement case
+		// could be equal or differ in one position due to a replacement
+		return checkOneReplacement(s, t)
+	}
+
+	if math.Abs(float64(len(s)-len(t))) == 1 {
+		// insertion into s / removal from t case, OR
+		// insertion into t / removal from s case
+		return checkOneInsertion(s, t)
+	}
+
+	return false
+}
+
+func checkOneReplacement(s, t string) bool {
+	if len(s) != len(t) {
+		return false
+	}
+
+	foundDiff := false
+
+	for i, charS := range s {
+
+		charT := t[i]
+
+		if charS != int32(charT) {
+			if foundDiff { // can't be off in 2 positions
+				return false
+			}
+
+			// treat current position as the replaced one
+			foundDiff = true
+		}
+	}
+
+	return true
+}
+
+func checkOneInsertion(first, second string) bool {
+	foundDiff := false
+
+	shorter := first
+	longer := second
+	if len(second) < len(first) {
+		shorter = second
+		longer = first
+	}
+
+	idxLonger := 0
+
+	for _, char := range shorter {
+		if char == int32(longer[idxLonger]) {
+			idxLonger++
+			continue
+		}
+
+		if foundDiff { // can't be off in 2 positions
+			return false
+		}
+
+		// treat longer[idxLonger] as the inserted character
+		foundDiff = true
+		// increment the counter and redo the check against the current char in shorter string
+		idxLonger++
+		if char != int32(longer[idxLonger]) {
+			// 2 off in a row
+			return false
+		}
+
+		idxLonger++
+	}
+
+	return true
+}
+
 func checkOneAwayRecursive(s, t string) bool {
 
 	if math.Abs(float64(len(s)-len(t))) > 1 {
@@ -31,12 +109,12 @@ func checkOneAwayRecursive(s, t string) bool {
 
 	// if reach there then leading chars of s and t differ
 
-	if len(s) == len(t) + 1 {
+	if len(s) == len(t)+1 {
 		// insertion into s / removal from t case
 		return s[1:] == t
 	}
 
-	if len(s) + 1 == len(t) {
+	if len(s)+1 == len(t) {
 		// insertion into t / removal from s case
 		return s == t[1:]
 	}

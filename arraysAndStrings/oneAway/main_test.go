@@ -1,15 +1,16 @@
 package main
 
 import (
-	"testing"
 	"fmt"
+	"testing"
+
 	"github.com/stretchr/testify/assert"
 )
 
 type testCase struct {
-	str1   string
-	str2           string
-	expectation   bool
+	str1        string
+	str2        string
+	expectation bool
 }
 
 func Test(t *testing.T) {
@@ -18,10 +19,10 @@ func Test(t *testing.T) {
 	for _, tc := range testCase {
 		t.Run(fmt.Sprintf("%s-%s", tc.str1, tc.str2), func(t *testing.T) {
 			assert.Equal(t, tc.expectation, checkOneAwayRecursive(tc.str1, tc.str2))
+			assert.Equal(t, tc.expectation, checkOneAway(tc.str1, tc.str2))
 		})
 	}
 }
-
 
 func getTestCases() []testCase {
 	testCases := []testCase{}
@@ -33,7 +34,8 @@ func getTestCases() []testCase {
 	testCases = append(testCases, testCase{"pale", "pal", true})
 	testCases = append(testCases, testCase{"ale", "pale", true})
 	testCases = append(testCases, testCase{"pal", "pale", true})
-	testCases = append(testCases, testCase{"pale", "ppale", true})
+	testCases = append(testCases, testCase{"paleo", "ppales", false})
+	testCases = append(testCases, testCase{"pale", "ppalse", false})
 	testCases = append(testCases, testCase{"pale", "palee", true})
 	testCases = append(testCases, testCase{"pale", "paleee", false})
 	testCases = append(testCases, testCase{"a", "abc", false})
