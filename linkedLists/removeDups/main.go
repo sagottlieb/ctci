@@ -69,3 +69,20 @@ func removeDupsNoBuffer(mm linkedList) linkedList {
 
 	return mm
 }
+
+func formatLL(mm linkedList) string {
+	return formatNode(mm.head)
+}
+
+func formatNode(n *node) string {
+	if n == nil {
+		return ""
+	}
+	out := fmt.Sprintf("%d->", n.data)
+	for n.next != nil {
+		out += fmt.Sprintf("%d->", n.next.data)
+		n = n.next
+	}
+	out += "nil"
+	return out
+}
