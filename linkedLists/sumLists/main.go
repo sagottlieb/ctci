@@ -17,6 +17,7 @@ type linkedList struct {
 	head *node
 }
 
+// 1's digit (least significant) is at the head
 func sum(mm, nn linkedList) linkedList {
 	if mm.head == nil {
 		return nn
@@ -64,6 +65,12 @@ func sum(mm, nn linkedList) linkedList {
 	}
 
 	return linkedList{head: sumHead}
+}
+
+// most significant digit is at the head
+func sumReverse(mm, nn linkedList) linkedList {
+
+	return linkedList{head: nil}
 }
 
 func formatLL(mm linkedList) string {

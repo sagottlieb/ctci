@@ -4,7 +4,15 @@ The digits are stored in _reverse_ order, such that the 1's digit is at the head
 Write a function that adds the two numbers and returns the sum as a linked list.
 Write code to remove duplicates from an unsorted linked list. 
 
-## Example
+### Example
 Input: (7 -> 1 -> 6) + (5 -> 9 -> 2). That is, 617 + 295.
 
 Output: 2 -> 1 -> 9. That is, 912.
+
+## Follow Up
+Suppose the digits are store in forward order. Repeat the above problem.
+
+### Example
+Input: (6 -> 1 -> 7) + (2 -> 9 -> 5). That is, 617 + 295.
+
+Output: 9 -> 1 -> 2. That is, 912.
