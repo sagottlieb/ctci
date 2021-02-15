@@ -4,7 +4,7 @@ type Stack struct {
 	Top *Node
 }
 
-func (s *Stack) push(v int) {
+func (s *Stack) Push(v int) {
 	newTop := Node{
 		Data: v,
 		Next: s.Top,
@@ -12,12 +12,12 @@ func (s *Stack) push(v int) {
 	s.Top = &newTop
 }
 
-func (s *Stack) isEmpty() bool {
+func (s *Stack) IsEmpty() bool {
 	return s.Top == nil
 }
 
-func (s *Stack) pop() int {
-	if s.isEmpty() {
+func (s *Stack) Pop() int {
+	if s.IsEmpty() {
 		panic("'pop' called on empty stack")
 	}
 	formerTop := s.Top

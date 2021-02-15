@@ -63,7 +63,31 @@ func sum(mm, nn datastructs.LinkedList) datastructs.LinkedList {
 // most significant digit is at the head
 // convert LLs to stacks then take sum
 func sumReverse(mm, nn datastructs.LinkedList) datastructs.LinkedList {
-	return datastructs.LinkedList{Head: nil}
+	mmStack := llToStack(mm)
+	nnStack := llToStack(nn)
+
+	var sumHead *datastructs.Node
+	carry := 0
+	for {
+		if mmStack.IsEmpty() && nnStack.IsEmpty() && carry == 0 {
+			break
+		}
+		mval := 0
+		if !mmStack.IsEmpty() {
+			mval = mmStack.Pop()
+		}
+		nval := 0
+		if !nnStack.IsEmpty() {
+			nval = nnStack.Pop()
+		}
+		newSumHead := &datastructs.Node{
+			Data: (mval + nval + carry) % 10,
+			Next: sumHead,
+		}
+		carry = (mval + nval + carry) / 10
+		sumHead = newSumHead
+	}
+	return datastructs.LinkedList{Head: sumHead}
 }
 
 func llToStack(mm datastructs.LinkedList) datastructs.Stack {
@@ -71,14 +95,20 @@ func llToStack(mm datastructs.LinkedList) datastructs.Stack {
 		Top: nil,
 	}
 
+	m := mm.Head
+	for m != nil {
+		out.Push(m.Data)
+		m = m.Next
+	}
+
 	return out
 }
 
 func formatLL(mm datastructs.LinkedList) string {
-	return formatNode(mm.Head)
+	return formatLLNode(mm.Head)
 }
 
-func formatNode(n *datastructs.Node) string {
+func formatLLNode(n *datastructs.Node) string {
 	if n == nil {
 		return ""
 	}
