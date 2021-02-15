@@ -2,89 +2,90 @@ package main
 
 import (
 	"fmt"
+
+	"github.com/sagottlieb/ctci/linkedLists/sumLists/datastructs"
 )
 
 func main() {
 	fmt.Println("Run go test and go test -bench=.")
 }
 
-type node struct {
-	data int
-	next *node
-}
-
-type linkedList struct {
-	head *node
-}
-
 // 1's digit (least significant) is at the head
-func sum(mm, nn linkedList) linkedList {
-	if mm.head == nil {
+func sum(mm, nn datastructs.LinkedList) datastructs.LinkedList {
+	if mm.Head == nil {
 		return nn
 	}
 
-	if nn.head == nil {
+	if nn.Head == nil {
 		return mm
 	}
 
-	m := mm.head
-	n := nn.head
+	m := mm.Head
+	n := nn.Head
 
-	sumHead := &node{
-		data: (m.data + n.data) % 10,
-		next: nil,
+	sumHead := &datastructs.Node{
+		Data: (m.Data + n.Data) % 10,
+		Next: nil,
 	}
 
-	carry := (m.data + n.data) / 10
+	carry := (m.Data + n.Data) / 10
 
 	sumTail := sumHead
 
-	for m.next != nil || n.next != nil || carry > 0 {
+	for m.Next != nil || n.Next != nil || carry > 0 {
 		t := carry
 
-		if m.next != nil {
-			t += m.next.data
-			m = m.next
+		if m.Next != nil {
+			t += m.Next.Data
+			m = m.Next
 		}
 
-		if n.next != nil {
-			t += n.next.data
-			n = n.next
+		if n.Next != nil {
+			t += n.Next.Data
+			n = n.Next
 		}
 
-		newTail := node{
-			data: t % 10,
-			next: nil,
+		newTail := datastructs.Node{
+			Data: t % 10,
+			Next: nil,
 		}
 
 		carry = t / 10
 
-		sumTail.next = &newTail
+		sumTail.Next = &newTail
 
 		sumTail = &newTail
 	}
 
-	return linkedList{head: sumHead}
+	return datastructs.LinkedList{Head: sumHead}
 }
 
 // most significant digit is at the head
-func sumReverse(mm, nn linkedList) linkedList {
-
-	return linkedList{head: nil}
+// convert LLs to stacks then take sum
+func sumReverse(mm, nn datastructs.LinkedList) datastructs.LinkedList {
+	return datastructs.LinkedList{Head: nil}
 }
 
-func formatLL(mm linkedList) string {
-	return formatNode(mm.head)
+func llToStack(mm datastructs.LinkedList) datastructs.Stack {
+	out := datastructs.Stack{
+		Top: nil,
+	}
+
+	return out
 }
 
-func formatNode(n *node) string {
+func formatLL(mm datastructs.LinkedList) string {
+	return formatNode(mm.Head)
+}
+
+func formatNode(n *datastructs.Node) string {
 	if n == nil {
 		return ""
 	}
-	out := fmt.Sprintf("%d->", n.data)
-	for n.next != nil {
-		out += fmt.Sprintf("%d->", n.next.data)
-		n = n.next
+	out := fmt.Sprintf("%d->", n.Data)
+	for n.Next != nil {
+		out += fmt.Sprintf("%d->", n.Next.Data)
+		n = n.Next
 	}
 	out += "nil"
 	return out

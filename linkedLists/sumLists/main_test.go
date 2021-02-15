@@ -4,13 +4,14 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/sagottlieb/ctci/linkedLists/sumLists/datastructs"
 	"github.com/stretchr/testify/assert"
 )
 
 type testCase struct {
-	one linkedList
-	two linkedList
-	sum linkedList
+	one datastructs.LinkedList
+	two datastructs.LinkedList
+	sum datastructs.LinkedList
 }
 
 func Test(t *testing.T) {
@@ -26,78 +27,78 @@ func Test(t *testing.T) {
 func getTestCases() []testCase {
 	testCases := []testCase{}
 
-	a := node{
-		data: 7,
-		next: &node{
-			data: 1,
-			next: &node{
-				data: 6,
-				next: nil,
+	a := datastructs.Node{
+		Data: 7,
+		Next: &datastructs.Node{
+			Data: 1,
+			Next: &datastructs.Node{
+				Data: 6,
+				Next: nil,
 			},
 		},
 	}
 
-	aa := node{
-		data: 4,
-		next: &node{
-			data: 3,
-			next: &node{
-				data: 2,
-				next: &node{
-					data: 1,
+	aa := datastructs.Node{
+		Data: 4,
+		Next: &datastructs.Node{
+			Data: 3,
+			Next: &datastructs.Node{
+				Data: 2,
+				Next: &datastructs.Node{
+					Data: 1,
 				},
 			},
 		},
 	}
 
-	b := node{
-		data: 5,
-		next: &node{
-			data: 9,
-			next: &node{
-				data: 2,
-				next: nil,
+	b := datastructs.Node{
+		Data: 5,
+		Next: &datastructs.Node{
+			Data: 9,
+			Next: &datastructs.Node{
+				Data: 2,
+				Next: nil,
 			},
 		},
 	}
 
-	bb := node{
-		data: 0,
-		next: &node{
-			data: 9,
-			next: &node{
-				data: 5,
+	bb := datastructs.Node{
+		Data: 0,
+		Next: &datastructs.Node{
+			Data: 9,
+			Next: &datastructs.Node{
+				Data: 5,
 			},
 		},
 	}
 
-	s := node{
-		data: 2,
-		next: &node{
-			data: 1,
-			next: &node{
-				data: 9,
-				next: nil,
+	s := datastructs.Node{
+		Data: 2,
+		Next: &datastructs.Node{
+			Data: 1,
+			Next: &datastructs.Node{
+				Data: 9,
+				Next: nil,
 			},
 		},
 	}
 
-	zero := node{
-		data: 0,
-		next: nil,
+	zero := datastructs.Node{
+		Data: 0,
+		Next: nil,
 	}
 
-	testCases = append(testCases, testCase{linkedList{head: &a}, linkedList{head: &b}, linkedList{head: &s}})
-	testCases = append(testCases, testCase{linkedList{head: &a}, linkedList{head: nil}, linkedList{head: &a}})
-	testCases = append(testCases, testCase{linkedList{head: nil}, linkedList{head: &b}, linkedList{head: &b}})
-	testCases = append(testCases, testCase{linkedList{head: nil}, linkedList{head: nil}, linkedList{head: nil}})
-	testCases = append(testCases, testCase{linkedList{head: &a}, linkedList{head: &zero}, linkedList{head: &a}})
-	testCases = append(testCases, testCase{linkedList{head: &zero}, linkedList{head: &a}, linkedList{head: &a}})
-	testCases = append(testCases, testCase{linkedList{head: &zero}, linkedList{head: &b}, linkedList{head: &b}})
-	testCases = append(testCases, testCase{linkedList{head: &s}, linkedList{head: &zero}, linkedList{head: &s}})
-	testCases = append(testCases, testCase{linkedList{head: &node{data: 7}}, linkedList{head: &node{data: 9}}, linkedList{head: &node{data: 6, next: &node{data: 1}}}})
-	testCases = append(testCases, testCase{linkedList{head: &a}, linkedList{head: &a}, linkedList{head: &aa}})
-	testCases = append(testCases, testCase{linkedList{head: &b}, linkedList{head: &b}, linkedList{head: &bb}})
+	testCases = append(testCases, testCase{datastructs.LinkedList{Head: &a}, datastructs.LinkedList{Head: &b}, datastructs.LinkedList{Head: &s}})
+	testCases = append(testCases, testCase{datastructs.LinkedList{Head: &a}, datastructs.LinkedList{Head: nil}, datastructs.LinkedList{Head: &a}})
+	testCases = append(testCases, testCase{datastructs.LinkedList{Head: nil}, datastructs.LinkedList{Head: &b}, datastructs.LinkedList{Head: &b}})
+	testCases = append(testCases, testCase{datastructs.LinkedList{Head: nil}, datastructs.LinkedList{Head: nil}, datastructs.LinkedList{Head: nil}})
+	testCases = append(testCases, testCase{datastructs.LinkedList{Head: &a}, datastructs.LinkedList{Head: &zero}, datastructs.LinkedList{Head: &a}})
+	testCases = append(testCases, testCase{datastructs.LinkedList{Head: &zero}, datastructs.LinkedList{Head: &a}, datastructs.LinkedList{Head: &a}})
+	testCases = append(testCases, testCase{datastructs.LinkedList{Head: &zero}, datastructs.LinkedList{Head: &b}, datastructs.LinkedList{Head: &b}})
+	testCases = append(testCases, testCase{datastructs.LinkedList{Head: &s}, datastructs.LinkedList{Head: &zero}, datastructs.LinkedList{Head: &s}})
+	testCases = append(testCases, testCase{datastructs.LinkedList{Head: &datastructs.Node{Data: 7}}, datastructs.LinkedList{Head: &datastructs.Node{Data: 9}}, datastructs.LinkedList{Head: &datastructs.Node{Data: 6, Next: &datastructs.Node{Data: 1}}}})
+	testCases = append(testCases, testCase{datastructs.LinkedList{Head: &a}, datastructs.LinkedList{Head: &a}, datastructs.LinkedList{Head: &aa}})
+	testCases = append(testCases, testCase{datastructs.LinkedList{Head: &b}, datastructs.LinkedList{Head: &b}, datastructs.LinkedList{Head: &bb}})
 
 	return testCases
 }
